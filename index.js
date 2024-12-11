@@ -12,8 +12,6 @@ require('./dbConnection/connection')
 
 const router = require('./routes/router')
 const users = require('./models/userModel')
-
-
 const wodServer = express()
 wodServer.use(cors())
 wodServer.use(express.json())
