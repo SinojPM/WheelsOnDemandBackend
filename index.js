@@ -12,8 +12,7 @@ require('./dbConnection/connection')
 
 const router = require('./routes/router')
 const users = require('./models/userModel')
-const clientId = "171104893531-tcehgnvr3mb2cf2331hm27ug9hm6ck26.apps.googleusercontent.com"
-const clientSecret = "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"
+
 
 const wodServer = express()
 wodServer.use(cors())
@@ -28,8 +27,8 @@ wodServer.use(session({
 wodServer.use(passport.initialize())
 wodServer.use(passport.session())
 passport.use(new oAuth2Strategy({
-    clientID:clientId,
-    clientSecret:clientSecret,
+    clientID:process.env.CLIENT_ID,
+    clientSecret:process.env.CLIENT_SECRET,
     callbackURL:"/auth/google/callback",
     scope:["profile","email"]
 },userController.googleSignUpController))
@@ -41,17 +40,6 @@ passport.deserializeUser((user,done)=>{
     done(null,user)
 })
 const PORT = 3002 || process.env.PORT
-socketIoServer.listen(3004,()=>{
-    console.log(" socket server is running");
-    
-})
-socketIoServer.get('/',(req,res)=>{
-    res.status(200).send('<h1 style="color:green;">PF server Started and waiting for client request</h1>')})
-io.on("connect",(socket)=>{
-    console.log(`user connected`);
-    
-})
-
 wodServer.listen(PORT,()=>{
     console.log(`wodServer Started at the port ${PORT} and waiting for client request`);
 })
