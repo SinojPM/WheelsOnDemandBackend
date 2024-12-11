@@ -45,9 +45,9 @@ router.get('/bookings-dashboard',jwtMiddleware,bookingsController.getAllBookings
 router.get('/auth/google',passport.authenticate("google",{scope:["profile","email"]}))
 
 router.get('/auth/google/callback',passport.authenticate("google",{
-    successRedirect:"http://localhost:5174/login",
+    successRedirect:"https://wheelsondemand.netlify.app/login",
     session:false,
-    failureRedirect:"http://localhost:5174/Register"
+    failureRedirect:"https://wheelsondemand.netlify.app/Register"
 }))
 router.post("/google/login",userController.googleSignInController)
 router.post("/add/recentView",jwtMiddleware,recentViewController.addrecentViewController)
